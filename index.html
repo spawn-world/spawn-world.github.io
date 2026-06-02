@@ -838,7 +838,10 @@
       <h2 class="section-title">TL;DR</h2>
       <div class="abstract-text">
         <p>
-          We introduce <strong>SPAWN</strong> (<strong>S</strong>wapping <strong>P</strong>inned <strong>A</strong>nchor with <strong>W</strong>indowed i<strong>N</strong>jection), a training-free method for concept spawning. We define <em>concept spawning</em> as introducing a user-specified visual concept into a world model, analogous to spawning in a game engine. SPAWN exploits a structural property of image-to-video backbones: the first slot of the context memory is pinned to the reference frame and acts as a foundational anchor for every generated chunk. By swapping this anchor with an external concept latent over a short injection window and letting the original anchor return, we cause the concept to propagate naturally through the rollout via the model's own memory. SPAWN supports concepts from fine-grained entities such as characters and props to large-scale elements such as buildings and landmarks, and accepts either a concept image or a text description as input. Experiments show that SPAWN integrates concepts with consistent lighting, scale, and perspective while preserving identity and temporal coherence, demonstrating that controllable concept spawning is achievable in existing autoregressive world models without any training.
+          Autoregressive world models generate worlds chunk by chunk as the user navigates. Once the camera moves past the reference frame, the unseen regions are populated by the model's priors, with no mechanism for the user to specify what should appear and where.
+        </p>
+        <p>
+          We introduce <strong>SPAWN</strong> (<strong>S</strong>wapping <strong>P</strong>inned <strong>A</strong>nchor with <strong>W</strong>indowed i<strong>N</strong>jection), a training-free method for <em>concept spawning</em>. In autoregressive video models, the first slot of the context memory is pinned to the reference frame and acts as an anchor for every generated chunk. SPAWN replaces this anchor with a concept latent over a short window, then restores it. The concept persists in the rollout via the model's own memory. SPAWN works with either a concept image or a text prompt, and supports concepts from fine-grained entities to large landmarks.
         </p>
       </div>
     </div>
