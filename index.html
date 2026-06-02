@@ -20,7 +20,7 @@
     --border: #e5e5e5;
     --button-bg: #1a1a1a;
     --button-text: #ffffff;
-    --max-width: 960px;
+    --max-width: 1200px;
   }
 
   html { scroll-behavior: smooth; }
@@ -74,6 +74,16 @@
   }
 
   .authors a:hover { text-decoration-color: var(--text); }
+
+  .authors .email-icon {
+    margin-left: 4px;
+    color: var(--muted);
+    font-size: 0.8em;
+    text-decoration: none;
+    vertical-align: 1px;
+  }
+
+  .authors .email-icon:hover { color: var(--text); }
 
   .affiliations {
     margin-top: 6px;
@@ -258,7 +268,12 @@
   .additional-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 14px 10px;
+  }
+
+  .additional-item {
+    display: flex;
+    flex-direction: column;
   }
 
   .additional-grid video {
@@ -268,6 +283,16 @@
     display: block;
     background: #000;
     border-radius: 4px;
+  }
+
+  .additional-caption {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+    line-height: 1.35;
+    padding: 0 4px;
   }
 
   @media (max-width: 700px) {
@@ -450,6 +475,55 @@
     object-fit: contain;
     vertical-align: middle;
     display: inline-block;
+  }
+
+  .action-sequence {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .action-label {
+    display: block;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .action-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .action-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .action-num {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1;
+  }
+
+  .action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #f5f5f4;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text);
   }
 
   .multi-concept video {
@@ -704,14 +778,14 @@
       <h1>From Zero to Hero: Training-Free Custom Concept Spawning in World Models</h1>
 
       <p class="authors">
-        <a href="#">Kiymet Akdemir</a>,
-        <a href="https://pinguar.org" target="_blank" rel="noopener">Pinar Yanardag</a>
+        <a href="#">Kiymet Akdemir</a><a href="mailto:kiymet@vt.edu" class="email-icon" aria-label="Email Kiymet Akdemir"><i class="fa-regular fa-envelope"></i></a>,
+        <a href="https://pinguar.org" target="_blank" rel="noopener">Pinar Yanardag</a><a href="mailto:pinary@vt.edu" class="email-icon" aria-label="Email Pinar Yanardag"><i class="fa-regular fa-envelope"></i></a>
       </p>
 
       <p class="affiliations">Virginia Tech</p>
 
       <div class="button-row">
-        <a href="#" class="pill" target="_blank" rel="noopener">
+        <a href="https://arxiv.org/abs/2606.02575" class="pill" target="_blank" rel="noopener">
           <i class="ai ai-arxiv"></i> arXiv
         </a>
         <a href="#" class="pill" target="_blank" rel="noopener">
@@ -777,7 +851,7 @@
       <div class="method-figure">
         <img src="images/framework.png" alt="Method overview of SPAWN">
         <p class="figure-caption">
-          <strong>Method overview.</strong> At each rollout step, the context memory <em>C<sub>t</sub></em> is reconstituted from the memory cache and passed through the encoder, autoregressive diffusion transformer, and decoder to produce the next chunk. At a specified injection step (<em>t</em>), we replace the anchor slot of <em>C<sub>t</sub></em> with a concept latent before encoding; the concept then persists in subsequent steps.
+          <strong>Method overview.</strong> At each rollout step, the context memory is reconstituted from the memory cache and passed through the encoder, autoregressive diffusion transformer, and decoder to produce the next chunk. At specified injection chunks, we replace the anchor slot of the context memory with a concept latent before encoding, which introduces the concept into the scene. Once the injection window ends, we restore the original anchor; even so, the concept persists in subsequent chunks. For clarity, the figure shows a reduced context size and a single replaced slot.
         </p>
       </div>
     </div>
@@ -861,6 +935,16 @@
           </div>
           <div class="concept-row">
             Add <img src="images/concepts/ufo.png" alt="ufo"> above
+          </div>
+          <div class="action-sequence">
+            <span class="action-label">Camera actions:</span>
+            <div class="action-row">
+              <div class="action-step"><span class="action-num">1</span><span class="action-icon" title="pan right"><i class="fa-solid fa-arrow-right"></i></span></div>
+              <div class="action-step"><span class="action-num">2</span><span class="action-icon" title="pan left"><i class="fa-solid fa-arrow-left"></i></span></div>
+              <div class="action-step"><span class="action-num">3</span><span class="action-icon" title="pan right"><i class="fa-solid fa-arrow-right"></i></span></div>
+              <div class="action-step"><span class="action-num">4</span><span class="action-icon" title="pan left"><i class="fa-solid fa-arrow-left"></i></span></div>
+              <div class="action-step"><span class="action-num">5</span><span class="action-icon" title="pan up"><i class="fa-solid fa-arrow-up"></i></span></div>
+            </div>
           </div>
         </div>
         <video autoplay loop muted playsinline>
@@ -1117,25 +1201,25 @@
     <div class="container">
       <h2 class="section-title">Additional Results</h2>
       <div class="additional-grid">
-        <video autoplay loop muted playsinline><source src="additional/0_6_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/0_82_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/0_88_right.mp4" type="video/mp4"></video>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/0_6_right.mp4" type="video/mp4"></video><div class="additional-caption">"a turtle resting on a rock near the water's edge"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/0_82_right.mp4" type="video/mp4"></video><div class="additional-caption">"a vibrant red canoe tied to a tree"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/0_88_right.mp4" type="video/mp4"></video><div class="additional-caption">"a wooden ladder leading from the shore into the water"</div></div>
 
-        <video autoplay loop muted playsinline><source src="additional/7_2_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/7_24_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/7_31_right.mp4" type="video/mp4"></video>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_2_right.mp4" type="video/mp4"></video><div class="additional-caption">"a lone streetlight with a lit bulb"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_24_right.mp4" type="video/mp4"></video><div class="additional-caption">"an antique pocket watch, open and glinting in the sunlight, on the rock"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_31_right.mp4" type="video/mp4"></video><div class="additional-caption">"a park bench facing towards the horizon"</div></div>
 
-        <video autoplay loop muted playsinline><source src="additional/7_25_left.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/7_43_left.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/7_81_left.mp4" type="video/mp4"></video>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_25_left.mp4" type="video/mp4"></video><div class="additional-caption">"a decorative throw pillow casually resting against a small boulder"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_43_left.mp4" type="video/mp4"></video><div class="additional-caption">"a shiny steel chain coiled on a prominent rock"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/7_81_left.mp4" type="video/mp4"></video><div class="additional-caption">"a picnic basket on a rock"</div></div>
 
-        <video autoplay loop muted playsinline><source src="additional/8_26_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/8_35_right.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/8_99_right.mp4" type="video/mp4"></video>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_26_right.mp4" type="video/mp4"></video><div class="additional-caption">"a sleek silver motorbike parked"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_35_right.mp4" type="video/mp4"></video><div class="additional-caption">"fully decorated Christmas tree with twinkling lights"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_99_right.mp4" type="video/mp4"></video><div class="additional-caption">"three children holding hands in the snow"</div></div>
 
-        <video autoplay loop muted playsinline><source src="additional/8_59_left.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/8_70_left.mp4" type="video/mp4"></video>
-        <video autoplay loop muted playsinline><source src="additional/8_73_left.mp4" type="video/mp4"></video>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_59_left.mp4" type="video/mp4"></video><div class="additional-caption">"stacked colorful kayaks in the field"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_70_left.mp4" type="video/mp4"></video><div class="additional-caption">"a pair of ice skates hanging from a tree branch"</div></div>
+        <div class="additional-item"><video autoplay loop muted playsinline><source src="additional/8_73_left.mp4" type="video/mp4"></video><div class="additional-caption">"a vintage wooden sled leaning against a tree"</div></div>
       </div>
     </div>
   </section>
@@ -1146,7 +1230,15 @@
   <section id="bibtex">
     <div class="container">
       <h2 class="section-title">BibTeX</h2>
-      <pre class="bibtex-block"><code></code></pre>
+      <pre class="bibtex-block"><code>@misc{akdemir2026zeroherotrainingfreecustom,
+      title={From Zero to Hero: Training-Free Custom Concept Spawning in World Models}, 
+      author={Kiymet Akdemir and Pinar Yanardag},
+      year={2026},
+      eprint={2606.02575},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2606.02575}, 
+}</code></pre>
     </div>
   </section>
 
